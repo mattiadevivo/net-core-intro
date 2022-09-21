@@ -6,8 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-string connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-Console.WriteLine(connectionString);
+string connectionStringTemplate = builder.Configuration.GetConnectionString("DefaultConnection");
+//var password = Environment.GetEnvironmentVariable("MSSQL_PASSWORD"); // This will also work
+string password = builder.Configuration.GetValue<String>("MSSQL_PASSWORD");
+string connectionString = String.Format(connectionStringTemplate, password);
+
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(ops => ops.UseSqlServer(connectionString));

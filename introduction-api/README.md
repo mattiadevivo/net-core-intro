@@ -20,6 +20,11 @@ We can add NuGet packages with:
 - to restore packages listed in project file use `dotnet restore` (automatically
 done using `dotnet build` and `dotnet run` commands)
 
+### Tools
+
+`dotnet new tool-manifest` creates a new tool manifest named `dotnet-tools.json`
+ for the project inside `.config` directory of the project.
+
 ## Entity Framework Core
 
 In EFCore data access is performed using a model which is made up of entity classes
@@ -45,9 +50,50 @@ appent that to the path
 **Return types** when is `ActionResult<T>` then ASP.NET Core automatically
 serializes the object to JSON and writes JSON into the body of the message.
 
+### EFCore Migrations
+
+For development purposes you can use [Create and drop APIs](https://learn.microsoft.com/en-us/ef/core/managing-schemas/ensure-created)
+but for production env is better we need to use **EF Core command-line tools**.
+
+Install *dotnet ef* tool with `dotnet ef migrations add InitialCreate`, this can
+be done globally or locally:
+```bash
+# Globally
+dotnet tool install --global dotnet-ef
+
+# Locally
+dotnet new tool-manifest # create the manifest of tools needed by the app
+dotnet tool install <tool> # install the tool
+dotnet tool restore # used by other devs to install needed local tools
+dotnet tool list # list all the tools in the manifest
+dotnet tool run <tool># run local tool # or
+dotnet <tool>
+dotnet tool uninstall <tool> # remove the tool
+
+# For both
+dotnet add package Microsoft.EntityFrameworkCore.Design # package needed for ef tool
+```
+
+- Create first migration `dotnet dotnet-ef migrations add InitialCreate`, this
+will create a directory called **Migrations** inside the project.
+- Create db and schema from the migration `dotnet dotnet-ef database update`
+- after we do changes in our models we can apply them with
+`dotnet dotnet-ef migrations add <AddedNewThingsMessage` then apply migration
+with `dotnet dotnet-ef database update`
+- `dotnet dotnet-ef migrations list` list all existing migrations
+- `dotnet dotnet-ef migrations remove` to remove the migration
+
+**To specify the configuration** that migration tool need to use pass
+`--configuration Development` to the cli commands.
+
+**To run the migration remember to temporary add sensitive info to
+the connectionStrin**.
+
+
 ## TODO
 
-- Placeholder in db configuration string, set Password with env var
+- [*] Placeholder in db configuration string, set Password with env var
+- [*] implement other CRUD methods
 - create migrations
-- implement other CRUD methods
 - implement unit tests
+- [publish to Azure](https://learn.microsoft.com/en-us/azure/app-service/quickstart-dotnetcore)
