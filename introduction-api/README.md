@@ -1,10 +1,5 @@
 # Introduction API
 
-## Project Setup
-
-- Create API project
-- add EF package `dotnet add package Microsoft.EntityFrameworkCore.InMemory`
-
 ## NuGet Packages
 
 We can add NuGet packages with:
@@ -55,12 +50,22 @@ serializes the object to JSON and writes JSON into the body of the message.
 For development purposes you can use [Create and drop APIs](https://learn.microsoft.com/en-us/ef/core/managing-schemas/ensure-created)
 but for production env is better we need to use **EF Core command-line tools**.
 
+Before using commands to apply the migrations just need to setup something:
+- add `appsettings.Migrations.json` file copying from `appsettings.Development.json`
+- update it inserting instead of `password placeholder` the real password
+- run the migrations command appending `--configuration Migrations` to use the right conf file
+- don't worry about the file, it's by default ignored by git (`.gitignore`)
+
 Install *dotnet ef* tool with `dotnet ef migrations add InitialCreate`, this can
 be done globally or locally:
 ```bash
+# For both
+dotnet add package Microsoft.EntityFrameworkCore.Design # package needed for ef tool
+
 # Globally
 dotnet tool install --global dotnet-ef
 
+# OR
 # Locally
 dotnet new tool-manifest # create the manifest of tools needed by the app
 dotnet tool install <tool> # install the tool
@@ -69,15 +74,12 @@ dotnet tool list # list all the tools in the manifest
 dotnet tool run <tool># run local tool # or
 dotnet <tool>
 dotnet tool uninstall <tool> # remove the tool
-
-# For both
-dotnet add package Microsoft.EntityFrameworkCore.Design # package needed for ef tool
 ```
 
 - Create first migration `dotnet dotnet-ef migrations add InitialCreate`, this
 will create a directory called **Migrations** inside the project.
 - Create db and schema from the migration `dotnet dotnet-ef database update`
-- after we do changes in our models we can apply them with
+- after we do changes in our models we can save them with
 `dotnet dotnet-ef migrations add <AddedNewThingsMessage` then apply migration
 with `dotnet dotnet-ef database update`
 - `dotnet dotnet-ef migrations list` list all existing migrations
@@ -89,11 +91,16 @@ with `dotnet dotnet-ef database update`
 **To run the migration remember to temporary add sensitive info to
 the connectionStrin**.
 
+## Run
+
+Run the project with `MSSQL_PASSWORD=<password> dotnet run` command.
+
+Swagger UI will be visible at `https://localhost:7250/swagger/index.html`.
 
 ## TODO
 
 - [*] Placeholder in db configuration string, set Password with env var
 - [*] implement other CRUD methods
-- create migrations
+- [*] create migrations
 - implement unit tests
 - [publish to Azure](https://learn.microsoft.com/en-us/azure/app-service/quickstart-dotnetcore)
