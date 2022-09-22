@@ -19,10 +19,8 @@
   <ItemGroup>
     <None Remove="Models\" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
-    <None Remove="Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Configuration\" />
   </ItemGroup>
 </Project>
