@@ -1,10 +1,15 @@
 # Introduction API
 
+## Visual Studio Tips
+
+- With cursor inside () press `Ctrl + shift + Space` to see all the possible overloads
+
 ## NuGet Packages
 
 We can add NuGet packages with:
 - dotnet cli
 - using Visual Studio GUI
+
 
 ## Dotnet cli
 

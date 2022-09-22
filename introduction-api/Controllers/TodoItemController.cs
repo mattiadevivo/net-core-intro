@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using introduction_api.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ namespace introduction_api.Controllers
     #region snippet_Route
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(AuthenticationSchemes = "Bearer")] // Setup Authorization for all the routes
     public class TodoItemsController : ControllerBase
     #endregion
     {
@@ -25,11 +28,16 @@ namespace introduction_api.Controllers
         }
 
         // GET: api/TodoItems
+        #region snippet_GetAll
         [HttpGet]
+        /// <summary>
+        /// Get all the TodoItems from DB
+        /// </summary>
         public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
         {
             return await _context.TodoItems.ToListAsync();
         }
+        #endregion
 
         // GET: api/TodoItems/5
         #region snippet_GetByID
@@ -51,6 +59,7 @@ namespace introduction_api.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Update
         [HttpPut("{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
         {
             if (id != todoItem.Id)
@@ -84,6 +93,7 @@ namespace introduction_api.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         #region snippet_Create
         [HttpPost]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
         {
             _context.TodoItems.Add(todoItem);
@@ -97,6 +107,7 @@ namespace introduction_api.Controllers
         // DELETE: api/TodoItems/5
         #region snippet_Delete
         [HttpDelete("{id}")]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> DeleteTodoItem(long id)
         {
             var todoItem = await _context.TodoItems.FindAsync(id);
