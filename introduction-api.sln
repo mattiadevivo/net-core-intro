@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "introduction-api", "introdu
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A5B0DA3D-BCE8-4835-BE1F-183A0A805CAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "..\IdentityServer\IdentityServer.csproj", "{C0D373D2-51A2-4207-861E-A46287080F8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A5B0DA3D-BCE8-4835-BE1F-183A0A805CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5B0DA3D-BCE8-4835-BE1F-183A0A805CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5B0DA3D-BCE8-4835-BE1F-183A0A805CAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D373D2-51A2-4207-861E-A46287080F8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D373D2-51A2-4207-861E-A46287080F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D373D2-51A2-4207-861E-A46287080F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D373D2-51A2-4207-861E-A46287080F8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
