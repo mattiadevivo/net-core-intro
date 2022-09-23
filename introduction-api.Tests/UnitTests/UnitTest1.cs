@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -20,7 +21,7 @@ public class TodoItemControllerTests
     public async Task GetTodoListSuccess()
     {
         var mockLogger = new Mock<ILogger>();
-        var mockDbContext = new Mock<>(DbContext);
+        var mockDbContext = new Mock<DbContext>();
 
     }
 
