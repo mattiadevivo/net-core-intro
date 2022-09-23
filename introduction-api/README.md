@@ -25,6 +25,14 @@ done using `dotnet build` and `dotnet run` commands)
 `dotnet new tool-manifest` creates a new tool manifest named `dotnet-tools.json`
  for the project inside `.config` directory of the project.
 
+### Manage solution
+
+- Create new solution `dotnet new sln -o <solution-name>`
+- Create new *class library solution* with `dotnet new classlib -o <class-library-project>`
+- Add Project to solution `dotnet sln add <path-to-csproj-file>`
+- Add Project as dependency `dotnet add <main-project> reference <class-library-project>`
+
+
 ## Entity Framework Core
 
 In EFCore data access is performed using a model which is made up of entity classes
@@ -101,6 +109,15 @@ the connectionStrin**.
 Run the project with `MSSQL_PASSWORD=<password> dotnet run` command.
 
 Swagger UI will be visible at `https://localhost:7250/swagger/index.html`.
+
+## Testing 
+
+- Create test project using `dotnet new xunit -o introduction-api.Tests`
+(new project inside `introduction-api.Tests` directory using *xUnit* as test
+library and adds some Packages (Microsoft.NET.Test.Sdk, xunit, xunit.runner.visualstudio, coverlet.collector))
+- Add *test project* to the solution file `dotnet sln add ./introduction-api.Tests/introduction-api.Tests.csproj`
+- Add *introduction-api class library* as a dependency of
+*introduction-api.Tests* `dotnet add ./introduction-api.Tests/introduction-api.Tests.csproj reference ./introduction-api/introduction-api.csproj`
 
 ## TODO
 

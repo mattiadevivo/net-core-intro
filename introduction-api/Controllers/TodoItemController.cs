@@ -62,11 +62,6 @@ namespace introduction_api.Controllers
         [Authorize(AuthenticationSchemes = "Bearer")]
         public async Task<IActionResult> PutTodoItem(long id, TodoItem todoItem)
         {
-            if (id != todoItem.Id)
-            {
-                return BadRequest();
-            }
-
             _context.Entry(todoItem).State = EntityState.Modified;
 
             try
