@@ -22,6 +22,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="6.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +31,11 @@
 
   <ItemGroup>
     <None Remove="UnitTests\" />
+    <None Remove="IntegrationTests\" />
+    <None Remove="FluentAssertions" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitTests\" />
+    <Folder Include="IntegrationTests\" />
   </ItemGroup>
 </Project>

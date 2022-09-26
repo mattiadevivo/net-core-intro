@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
+using introduction_api.Models;
 
-namespace introduction_api.Tests.UnitTests;
+namespace introduction_api.Tests.IntegrationTests;
 
 public class TodoItemControllerTests
 {
@@ -17,15 +18,15 @@ public class TodoItemControllerTests
         _client = _server.CreateClient();
     }
 
-    [Fact]
+    //[Fact]
     public async Task GetTodoListSuccess()
     {
         var mockLogger = new Mock<ILogger>();
-        var mockDbContext = new Mock<DbContext>();
+        var mockDbContext = new Mock<TodoContext>();
 
     }
 
-    [Fact]
+    //[Fact]
     public void Test1()
     {
 
