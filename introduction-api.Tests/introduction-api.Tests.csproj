@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -23,6 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +35,7 @@
     <None Remove="UnitTests\" />
     <None Remove="IntegrationTests\" />
     <None Remove="FluentAssertions" />
+    <None Remove="Microsoft.EntityFrameworkCore.InMemory" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UnitTests\" />
