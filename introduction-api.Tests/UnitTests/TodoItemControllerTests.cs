@@ -20,7 +20,8 @@ namespace introduction_api.Tests.UnitTests
         /// </summary>
         /// <returns></returns>
         [Fact]
-        public async Task Get() {
+        public async Task Get()
+        {
             // Arrange
             DbContextOptions<TodoContext> options = await Fixture();
             var dbContext = new TodoContext(options);
@@ -60,7 +61,74 @@ namespace introduction_api.Tests.UnitTests
 
             // Clean
             await dbContext.Database.EnsureDeletedAsync();
-            await dbContext.SaveChangesAsync();
+        }
+
+        [Fact]
+        public async Task Put()
+        {
+            // Arrange
+            DbContextOptions<TodoContext> options = await Fixture();
+            var dbContext = new TodoContext(options);
+            var controller = new TodoItemsController(
+                new Mock<ILogger<TodoItemsController>>().Object, dbContext);
+
+            // Act
+            TodoItem toBeModified = GetTestTodoItems().First(i => i.Id == 3);
+            toBeModified.IsComplete = true;
+            toBeModified.Name = "Third Item (not completed)";
+            var result = await controller.Put(toBeModified.Id, toBeModified);
+
+            // Assert
+            var modified = await dbContext.TodoItems.FindAsync(toBeModified.Id);
+            modified.Should().Match<TodoItem>(i => i.IsComplete == toBeModified.IsComplete &&
+            i.Name == toBeModified.Name
+                , "because they have the same id");
+
+            // Clean
+            await dbContext.Database.EnsureDeletedAsync();
+        }
+
+        [Fact]
+        public async Task Post() {
+            // Arrange
+            DbContextOptions<TodoContext> options = await Fixture();
+            var dbContext = new TodoContext(options);
+            var controller = new TodoItemsController(
+                new Mock<ILogger<TodoItemsController>>().Object, dbContext);
+
+            // Act
+            TodoItem itemToAdd = new TodoItem("Fifth item (completed)", true);
+            var result = await controller.Post(itemToAdd);
+
+            // Assert
+            var added = await dbContext.TodoItems.FindAsync(itemToAdd.Id);
+            added.Should().Match<TodoItem>(a => a.Name == itemToAdd.Name &&
+                a.IsComplete == itemToAdd.IsComplete, "because item has just be inserted into db"
+            );
+
+            // Clean
+            await dbContext.Database.EnsureDeletedAsync();
+
+        }
+
+        [Fact]
+        public async Task Delete() {
+            // Arrange
+            DbContextOptions<TodoContext> options = await Fixture();
+            var dbContext = new TodoContext(options);
+            var controller = new TodoItemsController(
+                new Mock<ILogger<TodoItemsController>>().Object, dbContext);
+
+            // Act
+            const long deletedIdx = 1;
+            var result = await controller.Delete(deletedIdx);
+
+            // Assert
+            var modified = await dbContext.TodoItems.FindAsync(deletedIdx);
+            modified.Should().BeNull("because it's been deleted");
+
+            // Clean
+            await dbContext.Database.EnsureDeletedAsync();
         }
 
         #region fixture_function
@@ -95,7 +163,8 @@ namespace introduction_api.Tests.UnitTests
         /// Return mocked data
         /// </summary>
         /// <returns>List<TodoItem> data for test</returns>
-        private static List<TodoItem> GetTestTodoItems() {
+        private static List<TodoItem> GetTestTodoItems()
+        {
             return new List<TodoItem>{
                 new TodoItem(1, "First Item (not completed)", false),
                 new TodoItem(2, "Second Item (completed)", true),

@@ -94,7 +94,6 @@ namespace introduction_api.Controllers
             _context.TodoItems.Add(todoItem);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             return CreatedAtAction(nameof(GetById), new { id = todoItem.Id }, todoItem);
         }
         #endregion

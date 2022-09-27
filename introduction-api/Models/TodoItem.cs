@@ -8,6 +8,7 @@ namespace introduction_api.Models
         public string? Name { get; set; }
         public bool IsComplete { get; set; }
 
+        public TodoItem() { } // Neede for automatic Serialization
         public TodoItem(string name, bool isComplete)
         {
             this.Name = name;
