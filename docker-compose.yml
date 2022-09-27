@@ -7,6 +7,8 @@ services:
     build:
       context: .
       dockerfile: introduction-api/Dockerfile
+    environments:
+      - "MSSQL_PASSWORD=<mssqlpassword>"
   sqlserver:
     container_name: mssqlserver
     image: mcr.microsoft.com/mssql/server:2022-latest
