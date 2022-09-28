@@ -2,18 +2,19 @@ version: '3.4'
 
 services:
   introduction-api:
-    container_image: introduction-api
-    image: ${DOCKER_REGISTRY-}introductionapi
+    container_name: introduction-api
     build:
-      context: .
-      dockerfile: introduction-api/Dockerfile
-    environments:
-      - "MSSQL_PASSWORD=<mssqlpassword>"
-  sqlserver:
-    container_name: mssqlserver
-    image: mcr.microsoft.com/mssql/server:2022-latest
+      context: ./introduction-api
+      dockerfile: Dockerfile
+    environment:
+      - "MSSQL_PASSWORD=<>"
     ports:
-      - "127.0.0.1:1443:1443"
-    environments:
-      - "ACCEPT_EULA=Y"
-      - "MSSQL_SA_PASSWORD=StrongPassword2022"
+      - "127.0.0.1:5000:5000"
+#  sqlserver:
+#    container_name: mssqlserver
+#    image: mcr.microsoft.com/mssql/server:2022-latest
+#    ports:
+#      - "127.0.0.1:1443:1443"
+#    environment:
+#      - "ACCEPT_EULA=Y"
+#      - "MSSQL_SA_PASSWORD=StrongPassword2022"

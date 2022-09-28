@@ -104,6 +104,12 @@ with `dotnet dotnet-ef database update`
 **To run the migration remember to temporary add sensitive info to
 the connectionStrin**.
 
+## Docker
+
+```bash
+docker run -d -e MSSQL_PASSWORD="h4RdJ^VZb&d^4b" -e ASPNETCORE_HTTP_PORT=https://+:5001 -e ASPNET_CORE_URLS=http://+:5000  -p 127.0.0.1:8443:443 -p 127.0.0.1:8080:80  mdevivoregistry.azurecr.io/intro:v1
+```
+
 ## Run
 
 Run the project with `MSSQL_PASSWORD=<password> dotnet run` command.
