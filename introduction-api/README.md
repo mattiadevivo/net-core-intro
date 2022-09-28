@@ -104,10 +104,17 @@ with `dotnet dotnet-ef database update`
 **To run the migration remember to temporary add sensitive info to
 the connectionStrin**.
 
+## Test
+
+Unit tests are in the separate project `introduction-api.Tests`, see its `README.md`
+file for all the instructions.
+
 ## Docker
 
+Create Docker image and execute docker container
 ```bash
-docker run -d -e MSSQL_PASSWORD="h4RdJ^VZb&d^4b" -e ASPNETCORE_HTTP_PORT=https://+:5001 -e ASPNET_CORE_URLS=http://+:5000  -p 127.0.0.1:8443:443 -p 127.0.0.1:8080:80  mdevivoregistry.azurecr.io/intro:v1
+docker build -t mdevivoregistry.azurecr.io/intro:latest .
+docker run -d -e MSSQL_PASSWORD="<>" -p 127.0.0.1:8080:80 mdevivoregistry.azurecr.io/intro:latest
 ```
 
 ## Run
@@ -115,20 +122,3 @@ docker run -d -e MSSQL_PASSWORD="h4RdJ^VZb&d^4b" -e ASPNETCORE_HTTP_PORT=https:/
 Run the project with `MSSQL_PASSWORD=<password> dotnet run` command.
 
 Swagger UI will be visible at `https://localhost:7250/swagger/index.html`.
-
-## Testing 
-
-- Create test project using `dotnet new xunit -o introduction-api.Tests`
-(new project inside `introduction-api.Tests` directory using *xUnit* as test
-library and adds some Packages (Microsoft.NET.Test.Sdk, xunit, xunit.runner.visualstudio, coverlet.collector))
-- Add *test project* to the solution file `dotnet sln add ./introduction-api.Tests/introduction-api.Tests.csproj`
-- Add *introduction-api class library* as a dependency of
-*introduction-api.Tests* `dotnet add ./introduction-api.Tests/introduction-api.Tests.csproj reference ./introduction-api/introduction-api.csproj`
-
-## TODO
-
-- [*] Placeholder in db configuration string, set Password with env var
-- [*] implement other CRUD methods
-- [*] create migrations
-- implement unit tests
-- [publish to Azure](https://learn.microsoft.com/en-us/azure/app-service/quickstart-dotnetcore)

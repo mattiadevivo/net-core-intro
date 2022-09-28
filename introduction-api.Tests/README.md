@@ -26,6 +26,15 @@ instanciate controllers by using **testing host**.
 
 [Fluent Assertions HomePage](https://fluentassertions.com/)
 
+## Project creation
+
+- Create test project using `dotnet new xunit -o introduction-api.Tests`
+(new project inside `introduction-api.Tests` directory using *xUnit* as test
+library and adds some Packages (Microsoft.NET.Test.Sdk, xunit, xunit.runner.visualstudio, coverlet.collector))
+- Add *test project* to the solution file `dotnet sln add ./introduction-api.Tests/introduction-api.Tests.csproj`
+- Add *introduction-api class library* as a dependency of
+*introduction-api.Tests* `dotnet add ./introduction-api.Tests/introduction-api.Tests.csproj reference ./introduction-api/introduction-api.csproj`
+
 ## Run
 
 Run tests with `dotnet test` command.

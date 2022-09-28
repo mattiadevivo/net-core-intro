@@ -18,17 +18,5 @@ public class TodoItemControllerTests
         _client = _server.CreateClient();
     }
 
-    //[Fact]
-    public async Task GetTodoListSuccess()
-    {
-        var mockLogger = new Mock<ILogger>();
-        var mockDbContext = new Mock<TodoContext>();
-
-    }
-
-    //[Fact]
-    public void Test1()
-    {
-
-    }
+    // TODO Integration tests
 }

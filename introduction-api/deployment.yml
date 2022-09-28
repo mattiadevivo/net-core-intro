@@ -1,0 +1,22 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: intro-aspnetcore-deployment
+spec:
+  selector:
+    matchLabels:
+      app: intro-aspnetcore-pod
+  template:
+    metadata:
+      labels:
+        app: intro-aspnetcore-pod
+    spec:
+      containers:
+      - name: intro-aspnetcore-container
+        image: mdevivoregistry.azurecr.io/intro:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
