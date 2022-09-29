@@ -1,0 +1,43 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+    
+env:
+  DOCKER_REGISTRY: mdevivoregistry.azurecr.io
+  DOCKER_IMAGE_NAME: netcoreintro
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3 # checkout git repo
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore introduction-api
+    - name: Build
+      run: dotnet build --no-restore introduction-api
+    - name: Test
+      run: dotnet test --no-build --verbosity normal introduction-api.Tests
+      
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3 # checkout git repo
+    - name: Build the Docker image
+      working-directory: ./introduction-api
+      run: docker build . --file Dockerfile --tag "$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest"
+    - name: Login to ACR (Azure Container Registry)
+      uses: docker/login-action@v2
+      with:
+        registry: ${{ env.DOCKER_REGISTRY }}
+        username: ${{ secrets.AZURE_CLIENT_ID }}
+        password: ${{ secrets.AZURE_CLIENT_SECRET }}
+    - name: push the image
+      run: docker push "$DOCKER_REGISTRY/$DOCKER_IMAGE_NAME:latest"
