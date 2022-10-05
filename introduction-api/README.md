@@ -10,6 +10,10 @@ We can add NuGet packages with:
 - dotnet cli
 - using Visual Studio GUI
 
+**Private NuGet Repository**:
+- download and install Azure artifacts credential provider [guide](https://github.com/microsoft/artifacts-credprovider#installation-on-linux-and-mac)
+- go to Nuget artifacts and copy the *feed_path*
+- add nuget source `dotnet nuget add source <feed_path> --name "delta"`
 
 ## Dotnet cli
 
