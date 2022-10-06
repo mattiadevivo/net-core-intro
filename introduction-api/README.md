@@ -120,6 +120,27 @@ Create Docker image and execute docker container
 docker build -t mdevivoregistry.azurecr.io/intro:latest .
 docker run -d -e MSSQL_PASSWORD="<>" -p 127.0.0.1:8080:80 mdevivoregistry.azurecr.io/intro:latest
 ```
+## Environments
+
+To determine runtime environment .NET Core reads from the following env vars:
+- `DOTNET_ENVIRONMENT`
+- `ASPNETCORE_ENVIRONMENT` which is used when the application uses `WebApplication.CreateBuilder`
+
+`IHostEnvironment.EnvironmentName` can be set to any value, when running without (-c Release) it will use
+`launchSettings.json` file to set the env vars. When neither `DOTNET_ENVIRONMENT` or `ASPNETCORE_ENVIRONMENT` is set it will use
+`Prodution` by default.
+
+Set environment on the command line: `dotnet run --environment Production`.
+
+### Development and launchSettings.json
+
+The environment for local machine development can be set in the `Properties\launchSettings.json` file of the project.
+Environment values set in `launchSettings.json` **override** values set in the system environment.
+
+The `launchSettings.json` file is **only used in the local dev machine, is not deployed** and contains profile settings can be used
+during developmemt.
+
+Select the profile to be used to launch the project with `dotnet run --lanuch-profile Development`
 
 ## Run
 
