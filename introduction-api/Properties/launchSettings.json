@@ -27,7 +27,6 @@
         "ASPNETCORE_ENVIRONMENT": "Staging"
       }
     },
-    "ASPNETCORE_ENVIRONMENT": null,
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

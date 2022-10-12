@@ -9,6 +9,7 @@
     <UserSecretsId>c3514f23-fede-4079-a8a1-981b8276a320</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'introduction_api-staging' " />
   <ItemGroup>
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
